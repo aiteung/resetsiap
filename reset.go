@@ -30,12 +30,19 @@ import (
 func Handler(Pesan model.IteungMessage, db *sql.DB) (reply string) {
 	mahasiswa, _ := GetMahasiswaByPhoneNumber(db, Pesan.Phone_number)
 	if strings.Contains(Pesan.Message, "ganti") {
-		// Ekstrak password baru dari pesan
-		pesanSplit := strings.Split(Pesan.Message, " ")
-		if len(pesanSplit) == 5 {
-			PasswordBaru := pesanSplit[4]
-			reply = ResetPassword(db, PasswordBaru, Pesan)
-		} else {
+		// Split pesan menjadi kata-kata
+		pesanSplit := strings.Fields(Pesan.Message)
+		for i, kata := range pesanSplit {
+			if kata == "siap" && i+1 < len(pesanSplit) {
+				// Password baru adalah kata setelah "siap"
+				PasswordBaru := pesanSplit[i+1]
+				reply = ResetPassword(db, PasswordBaru, Pesan)
+				break
+			}
+		}
+
+		// Jika tidak ada kata "siap" atau password baru, berikan pesan error
+		if reply == "" {
 			reply = MessageGagalReset(mahasiswa)
 		}
 	} else if strings.Contains(Pesan.Message, "cara") {
