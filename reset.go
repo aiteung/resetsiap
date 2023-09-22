@@ -14,9 +14,8 @@ func Handler(Pesan model.IteungMessage, db *sql.DB) (reply string) {
 		if len(pesanSplit) == 5 {
 			PasswordBaru := pesanSplit[4]
 
-			mahasiswa, _ := GetMahasiswaByPhoneNumber(db, Pesan.Phone_number)
 			// Panggil fungsi ResetPassword untuk mengganti password
-			reply = ResetPassword(db, Pesan.Phone_number, PasswordBaru, mahasiswa)
+			reply = ResetPassword(db, Pesan.Phone_number, PasswordBaru, Pesan)
 		} else {
 			// Jika pesan tidak sesuai format, berikan pesan error
 			reply = "Format perintah salah. Gunakan format: Iteung ganti password siap [password_baru]"
@@ -28,7 +27,8 @@ func Handler(Pesan model.IteungMessage, db *sql.DB) (reply string) {
 	return
 }
 
-func ResetPassword(db *sql.DB, NomorHp string, PasswordBaru string, mahasiswa TblMhs) (reply string) {
+func ResetPassword(db *sql.DB, NomorHp string, PasswordBaru string, Pesan model.IteungMessage) (reply string) {
+	mahasiswa, _ := GetMahasiswaByPhoneNumber(db, Pesan.Phone_number)
 	// Lakukan perintah SQL untuk mengganti password
 	_, err := db.Exec("UPDATE tblMHS SET Password = ? WHERE Tlp_Mhs = ?", PasswordBaru, NomorHp)
 	if err != nil {
