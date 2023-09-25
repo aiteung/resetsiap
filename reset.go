@@ -7,43 +7,25 @@ import (
 	"github.com/aiteung/module/model"
 )
 
-// func Handler(Pesan model.IteungMessage, db *sql.DB) (reply string) {
-// 	if strings.Contains(Pesan.Message, "ganti") {
-// 		// Ekstrak password baru dari pesan
-// 		pesanSplit := strings.Split(Pesan.Message, " ")
-// 		if len(pesanSplit) == 5 {
-// 			PasswordBaru := pesanSplit[4]
-
-// 			// Panggil fungsi ResetPassword untuk mengganti password
-// 			reply = ResetPassword(db, PasswordBaru, Pesan)
-// 		} else {
-// 			// Jika pesan tidak sesuai format, berikan pesan error
-// 			reply = "Format perintah salah. Gunakan format: Iteung ganti password siap [password_baru]"
-// 		}
-// 	} else if strings.Contains(Pesan.Message, "cara") {
-// 		mahasiswa, _ := GetMahasiswaByPhoneNumber(db, Pesan.Phone_number)
-// 		reply = CaraResetPassword(mahasiswa)
-// 	}
-// 	return
-// }
-
 func Handler(Pesan model.IteungMessage, db *sql.DB) (reply string) {
 	mahasiswa, _ := GetMahasiswaByPhoneNumber(db, Pesan.Phone_number)
 	if strings.Contains(Pesan.Message, "ganti") {
 		// Split pesan menjadi kata-kata
 		pesanSplit := strings.Fields(Pesan.Message)
+		foundSiap := false
 		for i, kata := range pesanSplit {
 			if kata == "siap" && i+1 < len(pesanSplit) {
 				// Password baru adalah kata setelah "siap"
 				PasswordBaru := pesanSplit[i+1]
 				reply = ResetPassword(db, PasswordBaru, Pesan)
+				foundSiap = true
 				break
 			}
 		}
 
 		// Jika tidak ada kata "siap" atau password baru, berikan pesan error
-		if reply == "" {
-			reply = MessageGagalReset(mahasiswa)
+		if !foundSiap {
+			reply = "Keyword kakak belum benar nihh, kakak harus ganti password dengan cara 'Iteung ganti password siap [password_baru]'. Maaciww kakakkk"
 		}
 	} else if strings.Contains(Pesan.Message, "cara") {
 		reply = CaraResetPassword(mahasiswa)
@@ -62,24 +44,6 @@ func ResetPassword(db *sql.DB, PasswordBaru string, Pesan model.IteungMessage) (
 	}
 
 	return MessageBerhasilReset(mahasiswa)
-}
-
-func ProcessResetPasswordMessage(db *sql.DB, Pesan model.IteungMessage) string {
-	// Membagi pesan menjadi kata-kata
-	words := strings.Fields(Pesan.Message)
-
-	// Memeriksa apakah pesan sesuai format
-	if len(words) != 5 || words[0] != "Iteung" || words[1] != "ganti" || words[2] != "password" || words[3] != "siap" {
-		return "Format pesan tidak valid. Contoh: 'Iteung ganti password siap [password_baru]'"
-	}
-
-	// Mengambil password baru dari pesan
-	passwordBaru := words[4]
-
-	// Mengganti password
-	reply := ResetPassword(db, passwordBaru, Pesan)
-
-	return reply
 }
 
 func MessageBerhasilReset(mhs TblMhs) string {
