@@ -1,4 +1,4 @@
-module github.com/aiteung/resetsiap
+module github.com/aiteung/siappkg
 
 go 1.21.0
 
