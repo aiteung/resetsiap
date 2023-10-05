@@ -16,10 +16,10 @@ require (
 	github.com/youmark/pkcs8 v0.0.0-20201027041543-1326539a0a0a // indirect
 	go.mau.fi/libsignal v0.1.0 // indirect
 	go.mau.fi/util v0.1.0 // indirect
-	go.mau.fi/whatsmeow v0.0.0-20230926223531-00abc29ba510 // indirect
+	go.mau.fi/whatsmeow v0.0.0-20230929093856-69d5ba6fa3e3 // indirect
 	go.mongodb.org/mongo-driver v1.12.1 // indirect
 	golang.org/x/crypto v0.13.0 // indirect
-	golang.org/x/sync v0.3.0 // indirect
+	golang.org/x/sync v0.4.0 // indirect
 	golang.org/x/text v0.13.0 // indirect
 	google.golang.org/protobuf v1.31.0 // indirect
 )
