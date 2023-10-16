@@ -2,10 +2,15 @@ module github.com/aiteung/siappkg
 
 go 1.21.0
 
-require github.com/aiteung/module v0.0.27
+require (
+	github.com/aiteung/module v0.0.27
+	github.com/denisenkom/go-mssqldb v0.12.3
+)
 
 require (
 	filippo.io/edwards25519 v1.0.0 // indirect
+	github.com/golang-sql/civil v0.0.0-20220223132316-b832511892a9 // indirect
+	github.com/golang-sql/sqlexp v0.1.0 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/klauspost/compress v1.17.0 // indirect
