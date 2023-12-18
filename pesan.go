@@ -1,4 +1,4 @@
-package reset
+package siappkg
 
 func MessageBerhasilReset(mhs TblMhs) string {
 	msg := "*Reset Password*\n"
@@ -33,5 +33,23 @@ func MessageBelumApproval(mahasiswa TblMhs, prw Perwalian) string {
 func MessageUpdateNomorDiSiap() string {
 	msg := "*KETERANGAN*\n"
 	msg = msg + "Kakak belum update nomor WhatsApp kakak di SIAP nihh. Kakak update dulu yaww nomor nya di SIAP sebelum mau akses aq. Caranya gampang kok kak, kakak tinggal buka https://siapmhs.ulbi.ac.id/login terus ke bagian profil mahasiswa. Disitu ada tanda pensil kak yang artinya edit. Nah disitu kakak update deh nomor WhatsApp kakak. Maaciww kakk"
+	return msg
+}
+
+func MessageLengkapiData() string {
+	msg := "*SKMK*\n"
+	msg = msg + "Data kakak di siap belum lengkap nihh. Kakak lengkapi dulu ya, kayak profil kakak nya, pekerjaan orang tua kakak nya. Kalau udah, kakak boleh minta SKMK lagi sama akuu, maaciwww...."
+	return msg
+}
+
+func MessageBerhasilMintaSkmk(mhs TblSkmk) string {
+	msg := "*SKMK*\n"
+	msg = msg + "SKMK Lagi dikirim sama iTeung ke email " + mhs.Email + ", di cek aja ya kak..."
+	return msg
+}
+
+func MessageGagalMintaSkmk() string {
+	msg := "*SKMK*\n"
+	msg = msg + "SKMK gagal dikirim sama iTeung di email, coba kakak hubungi TIK yaa..."
 	return msg
 }

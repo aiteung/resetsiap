@@ -21,3 +21,4 @@ time_test.go
 
 # Go workspace file
 go.work
+db.go

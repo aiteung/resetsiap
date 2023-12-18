@@ -1,4 +1,4 @@
-package reset
+package siappkg
 
 import (
 	"database/sql"
@@ -7,7 +7,7 @@ import (
 	"github.com/aiteung/module/model"
 )
 
-func Handler(Pesan model.IteungMessage, db *sql.DB) (reply string) {
+func Handler(Pesan model.IteungMessage, db *sql.DB, UrlEmail string) (reply string) {
 	mahasiswa, _ := GetMahasiswaByPhoneNumber(db, Pesan.Phone_number)
 	if strings.Contains(Pesan.Message, "ganti") {
 		// Split pesan menjadi kata-kata
@@ -42,6 +42,9 @@ func Handler(Pesan model.IteungMessage, db *sql.DB) (reply string) {
 				reply = MessageBelumApproval(mahasiswa, prw)
 			}
 		}
+	} else if strings.Contains(Pesan.Message, "skmk") {
+		// Split pesan menjadi kata-kata
+		reply = SendSkmk(UrlEmail, db, Pesan)
 	} else {
 		return "Terjadi Error"
 	}
