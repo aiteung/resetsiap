@@ -42,9 +42,6 @@ func Handler(Pesan model.IteungMessage, db *sql.DB, UrlEmail string) (reply stri
 				reply = MessageBelumApproval(mahasiswa, prw)
 			}
 		}
-	} else if strings.Contains(Pesan.Message, "skmk") {
-		// Split pesan menjadi kata-kata
-		reply = SendSkmk(UrlEmail, db, Pesan)
 	} else {
 		return "Terjadi Error"
 	}
