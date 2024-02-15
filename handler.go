@@ -7,25 +7,41 @@ import (
 	"github.com/aiteung/module/model"
 )
 
-func Handler(Pesan model.IteungMessage, db *sql.DB, UrlEmail string) (reply string) {
+func Handler(Pesan model.IteungMessage, db *sql.DB) (reply string) {
 	mahasiswa, _ := GetMahasiswaByPhoneNumber(db, Pesan.Phone_number)
-	if strings.Contains(Pesan.Message, "ganti") {
+	if strings.Contains(Pesan.Message, "mahasiswa") {
 		// Split pesan menjadi kata-kata
 		pesanSplit := strings.Fields(Pesan.Message)
 		foundSiap := false
 		for i, kata := range pesanSplit {
 			if kata == "siap" && i+1 < len(pesanSplit) {
 				// Password baru adalah kata setelah "siap"
-				PasswordBaru := pesanSplit[i+1]
+				PasswordBaru := pesanSplit[i+2]
 				reply = ResetPassword(db, PasswordBaru, Pesan)
 				foundSiap = true
 				break
 			}
 		}
-
 		// Jika tidak ada kata "siap" atau password baru, berikan pesan error
 		if !foundSiap {
 			reply = "Keyword kakak belum benar nihh, kakak harus ganti password dengan cara 'Iteung ganti password siap [password_baru]'. Maaciww kakakkk"
+		}
+	} else if strings.Contains(Pesan.Message, "dosen") {
+		// Split pesan menjadi kata-kata
+		pesanSplit := strings.Fields(Pesan.Message)
+		foundSiap := false
+		for i, kata := range pesanSplit {
+			if kata == "siap" && i+1 < len(pesanSplit) {
+				// Password baru adalah kata setelah "siap"
+				PasswordBaru := pesanSplit[i+2]
+				reply = ResetPasswordDosen(db, Pesan, PasswordBaru)
+				foundSiap = true
+				break
+			}
+		}
+		// Jika tidak ada kata "siap" atau password baru, berikan pesan error
+		if !foundSiap {
+			reply = "Keyword kakak belum benar nihh, kakak harus ganti password dengan cara 'Iteung ganti password siap dosen [password_baru]'. Maaciww kakakkk"
 		}
 	} else if strings.Contains(Pesan.Message, "cara") {
 		reply = CaraResetPassword(mahasiswa)
