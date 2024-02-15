@@ -24,7 +24,7 @@ func Handler(Pesan model.IteungMessage, db *sql.DB) (reply string) {
 		}
 		// Jika tidak ada kata "siap" atau password baru, berikan pesan error
 		if !foundSiap {
-			reply = "Keyword kakak belum benar nihh, kakak harus ganti password dengan cara 'Iteung ganti password siap [password_baru]'. Maaciww kakakkk"
+			reply = "Keyword kakak belum benar nihh, kakak harus ganti password dengan cara 'Iteung ganti password siap mahasiswa [password_baru]'. Maaciww kakakkk"
 		}
 	} else if strings.Contains(Pesan.Message, "dosen") {
 		// Split pesan menjadi kata-kata
