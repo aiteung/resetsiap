@@ -8,6 +8,12 @@ type TblMhs struct {
 	TlpMhs  string `json:"Tlp_Mhs"`
 }
 
+type TblDosen struct {
+	Nidn  string `json:"NIDN"`
+	Nama  string `json:"Nama"`
+	Phone string `json:"Phone"`
+}
+
 type Perwalian struct {
 	Nim           string `json:"Nim"`
 	TahunAkademik string `json:"Thn_Akademik"`
