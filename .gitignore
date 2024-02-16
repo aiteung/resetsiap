@@ -12,6 +12,7 @@
 *.test
 reset_test.go
 time_test.go
+handler_test.go
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
