@@ -26,8 +26,7 @@ func Handler(Pesan model.IteungMessage, db *sql.DB) (reply string) {
 		if !foundSiap {
 			reply = "Keyword kakak belum benar nihh, kakak harus ganti password dengan cara 'Iteung ganti password siap mahasiswa [password_baru]'. Maaciww kakakkk"
 		}
-	}
-	if strings.Contains(Pesan.Message, "dosen") {
+	} else if strings.Contains(Pesan.Message, "dosen") {
 		// Split pesan menjadi kata-kata
 		pesanSplit := strings.Fields(Pesan.Message)
 		foundSiap := false
