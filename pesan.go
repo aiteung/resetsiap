@@ -6,9 +6,21 @@ func MessageBerhasilReset(mhs TblMhs) string {
 	return msg
 }
 
+func MessageBerhasilResetDosen(dosen TblDosen) string {
+	msg := "*Reset Password*\n"
+	msg = msg + "Hai kak _*" + dosen.Nama + "*_,\ndengan nomor telepon *" + dosen.Phone + "*,\nNIDN *" + dosen.Nidn + "*, \npassword kakak berhasil di reset.\nSilahkan kakak coba login lagi di https://siapdosen.ulbi.ac.id/login"
+	return msg
+}
+
 func MessageGagalReset(mhs TblMhs) string {
 	msg := "*Gagal Reset Password*\n"
 	msg = msg + "Hai kak _*" + mhs.NamaMhs + "*_,\ndengan nomor telepon *" + mhs.TlpMhs + "*,\nNPM *" + mhs.Nim + "*, \nmaaf kak, password kakak gagal di reset :(.\nSilahkan kakak coba lagi yawww....."
+	return msg
+}
+
+func MessageGagalResetDosen(dosen TblDosen) string {
+	msg := "*Gagal Reset Password*\n"
+	msg = msg + "Hai kak _*" + dosen.Nama + "*_,\ndengan nomor telepon *" + dosen.Phone + "*,\nNIDN *" + dosen.Nidn + "*, \nmaaf kak, password kakak gagal di reset :(.\nSilahkan kakak coba lagi yawww....."
 	return msg
 }
 
