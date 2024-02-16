@@ -37,6 +37,21 @@ func GetMahasiswaByPhoneNumber(db *sql.DB, phoneNumber string) (TblMhs, error) {
 	return result, nil
 }
 
+func GetDosenByPhoneNumber(db *sql.DB, phoneNumber string) (TblDosen, error) {
+	// Query untuk mengambil data dari tabel tblMHS dengan kondisi WHERE Nomor Telepon
+	query := "SELECT NIDN, Nama, Phone FROM tblDosen WHERE Phone = ?"
+
+	var result TblDosen
+
+	// Eksekusi query dan ambil data
+	err := db.QueryRow(query, phoneNumber).Scan(&result.Nidn, &result.Nama, &result.Phone)
+	if err != nil {
+		return TblDosen{}, err
+	}
+
+	return result, nil
+}
+
 func CheckMahasiswaApproval(db *sql.DB, Pesan model.IteungMessage, TahunAkademik string) (TblMhs, Perwalian, error) {
 	// Mendapatkan tahun akademik saat ini dalam format "YYYY-YYYY"
 	TahunAkademik = GetCurrentAcademicYear()
@@ -98,6 +113,7 @@ func GetTahunAkademik(db *sql.DB) (*AcademicYear, error) {
 }
 
 func ResetPasswordDosen(db *sql.DB, Pesan model.IteungMessage, newPassword string) (reply string) {
+	dosen, _ := GetDosenByPhoneNumber(db, Pesan.Phone_number)
 	// Generate MD5 hash for the new password
 	hashedPassword, err := GenerateMD5Hash(newPassword)
 	if err != nil {
@@ -107,10 +123,9 @@ func ResetPasswordDosen(db *sql.DB, Pesan model.IteungMessage, newPassword strin
 	// Update password in the database
 	_, err = db.Exec("UPDATE tblDosen SET Password = ? WHERE Phone = ?", hashedPassword, Pesan.Phone_number)
 	if err != nil {
-		return "Password gagal di reset"
+		return MessageGagalResetDosen(dosen)
 	}
-	// fmt.Printf("Password kakak dengan nomor telepon %s berhasil di reset. Pasword barunya: %s\n", Pesan.Phone_number, newPassword)
-	return "Password kakak berhasil di reset"
+	return MessageBerhasilResetDosen(dosen)
 }
 
 func GenerateMD5Hash(password string) (string, error) {
