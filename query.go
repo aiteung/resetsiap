@@ -22,7 +22,7 @@ func ResetPassword(db *sql.DB, PasswordBaru string, Pesan model.IteungMessage) (
 		return "Gagal mereset password. Terjadi kesalahan pada proses reset."
 	}
 
-	return MessageBerhasilReset(mahasiswa)
+	return MessageBerhasilReset(mahasiswa, PasswordBaru)
 }
 
 func GetMahasiswaByPhoneNumber(db *sql.DB, phoneNumber string) (TblMhs, error) {
