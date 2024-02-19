@@ -2,9 +2,9 @@ package siappkg
 
 import "github.com/aiteung/module/model"
 
-func MessageBerhasilReset(mhs TblMhs) string {
+func MessageBerhasilReset(mhs TblMhs, PasswordBaru string) string {
 	msg := "*Reset Password*\n"
-	msg = msg + "Hai kak _*" + mhs.NamaMhs + "*_,\ndengan nomor telepon *" + mhs.TlpMhs + "*,\nNPM *" + mhs.Nim + "*, \npassword kakak berhasil di reset.\nSilahkan kakak coba login lagi di https://siapmhs.ulbi.ac.id/login"
+	msg = msg + "Hai kak _*" + mhs.NamaMhs + "*_,\ndengan nomor telepon *" + mhs.TlpMhs + "*,\nNPM *" + mhs.Nim + "*, \npassword kakak berhasil di reset.\nSilahkan kakak coba login lagi di https://siapmhs.ulbi.ac.id/login\n*Password baru kamu : " + PasswordBaru + "*"
 	return msg
 }
 
@@ -28,7 +28,7 @@ func MessageGagalResetDosen(dosen TblDosen) string {
 
 func CaraResetPassword(mhs TblMhs) string {
 	msg := "*Reset Password*\n"
-	msg = msg + "Hai kak _*" + mhs.NamaMhs + "*_,\ndengan nomor telepon *" + mhs.TlpMhs + "*,\nNPM *" + mhs.Nim + "*, \nKalo kakak mau ganti password SIAP kakak, kakak bisa ikutin instruksi iteung yaa.\nCaranya kakak tinggal ketikking perintah _Iteung ganti password siap passwordbarunya_.\nCukup gitu aja sih kak, iteung saranin pake password yang gampang diinget yaa, biar ga nyusahin iteung wkwkwk. Makasih kakk"
+	msg = msg + "Hai kak _*" + mhs.NamaMhs + "*_,\ndengan nomor telepon *" + mhs.TlpMhs + "*,\nNPM *" + mhs.Nim + "*, \nKalo kakak mau ganti password SIAP kakak, kakak bisa ikutin instruksi iteung yaa.\nCaranya kakak tinggal ketikkin perintah _Iteung ganti password siap mahasiswa passwordbarunya_.\nCukup gitu aja sih kak, iteung saranin pake password yang gampang diinget yaa, biar ga nyusahin iteung wkwkwk. Makasih kakk"
 	return msg
 }
 
