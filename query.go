@@ -12,11 +12,14 @@ import (
 )
 
 func ResetPassword(db *sql.DB, PasswordBaru string, Pesan model.IteungMessage) (reply string) {
-	mahasiswa, _ := GetMahasiswaByPhoneNumber(db, Pesan.Phone_number)
-	// Lakukan perintah SQL untuk mengganti password
-	_, err := db.Exec("UPDATE tblMHS SET Password = ? WHERE Tlp_Mhs = ?", PasswordBaru, Pesan.Phone_number)
+	mahasiswa, err := GetMahasiswaByPhoneNumber(db, Pesan.Phone_number)
 	if err != nil {
-		return MessageGagalReset(mahasiswa)
+		return MessageGagalReset(Pesan)
+	}
+	// Lakukan perintah SQL untuk mengganti password
+	_, err = db.Exec("UPDATE tblMHS SET Password = ? WHERE Tlp_Mhs = ?", PasswordBaru, Pesan.Phone_number)
+	if err != nil {
+		return "Gagal mereset password. Terjadi kesalahan pada proses reset."
 	}
 
 	return MessageBerhasilReset(mahasiswa)
