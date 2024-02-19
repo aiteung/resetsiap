@@ -1,5 +1,7 @@
 package siappkg
 
+import "github.com/aiteung/module/model"
+
 func MessageBerhasilReset(mhs TblMhs) string {
 	msg := "*Reset Password*\n"
 	msg = msg + "Hai kak _*" + mhs.NamaMhs + "*_,\ndengan nomor telepon *" + mhs.TlpMhs + "*,\nNPM *" + mhs.Nim + "*, \npassword kakak berhasil di reset.\nSilahkan kakak coba login lagi di https://siapmhs.ulbi.ac.id/login"
@@ -12,9 +14,9 @@ func MessageBerhasilResetDosen(dosen TblDosen) string {
 	return msg
 }
 
-func MessageGagalReset(mhs TblMhs) string {
+func MessageGagalReset(Pesan model.IteungMessage) string {
 	msg := "*Gagal Reset Password*\n"
-	msg = msg + "Hai kak _*" + mhs.NamaMhs + "*_,\ndengan nomor telepon *" + mhs.TlpMhs + "*,\nNPM *" + mhs.Nim + "*, \nmaaf kak, password kakak gagal di reset :(.\nSilahkan kakak coba lagi yawww....."
+	msg = msg + "Data Kamu dengan Nomor Telepon " + Pesan.Phone_number + " Gaada nihh.\nCoba cek dulu nomor kamu udah sama kayak di SIAP Mahasiswa atau belum yaa..."
 	return msg
 }
 
