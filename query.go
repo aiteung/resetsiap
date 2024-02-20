@@ -16,6 +16,12 @@ func ResetPassword(db *sql.DB, PasswordBaru string, Pesan model.IteungMessage) (
 	if err != nil {
 		return MessageGagalReset(Pesan)
 	}
+
+	// Jika PasswordBaru tidak diberikan, gunakan nilai default
+	if PasswordBaru == "" {
+		PasswordBaru = "sariasih54"
+	}
+
 	// Lakukan perintah SQL untuk mengganti password
 	_, err = db.Exec("UPDATE tblMHS SET Password = ? WHERE Tlp_Mhs = ?", PasswordBaru, Pesan.Phone_number)
 	if err != nil {
