@@ -116,7 +116,10 @@ func GetTahunAkademik(db *sql.DB) (*AcademicYear, error) {
 }
 
 func ResetPasswordDosen(db *sql.DB, Pesan model.IteungMessage, newPassword string) (reply string) {
-	dosen, _ := GetDosenByPhoneNumber(db, Pesan.Phone_number)
+	dosen, err := GetDosenByPhoneNumber(db, Pesan.Phone_number)
+	if err != nil {
+		return MessageGagalResetDosen(Pesan)
+	}
 	// Generate MD5 hash for the new password
 	hashedPassword, err := GenerateMD5Hash(newPassword)
 	if err != nil {
@@ -126,7 +129,7 @@ func ResetPasswordDosen(db *sql.DB, Pesan model.IteungMessage, newPassword strin
 	// Update password in the database
 	_, err = db.Exec("UPDATE tblDosen SET Password = ? WHERE Phone = ?", hashedPassword, Pesan.Phone_number)
 	if err != nil {
-		return MessageGagalResetDosen(dosen)
+		return MessageGagalResetDosen(Pesan)
 	}
 	return MessageBerhasilResetDosen(dosen)
 }
