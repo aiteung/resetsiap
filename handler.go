@@ -8,7 +8,6 @@ import (
 )
 
 func Handler(Pesan model.IteungMessage, db *sql.DB) (reply string) {
-	mahasiswa, _ := GetMahasiswaByPhoneNumber(db, Pesan.Phone_number)
 	if (strings.Contains(Pesan.Message, "ganti") || strings.Contains(Pesan.Message, "reset")) && strings.Contains(Pesan.Message, "mahasiswa") {
 		// Split pesan menjadi kata-kata
 		pesanSplit := strings.Fields(Pesan.Message)
@@ -47,23 +46,8 @@ func Handler(Pesan model.IteungMessage, db *sql.DB) (reply string) {
 			PasswordBaru = "sariasih54"
 		}
 		reply = ResetPasswordDosen(db, Pesan, PasswordBaru)
-	} else if strings.Contains(Pesan.Message, "cara") {
-		reply = CaraResetPassword(mahasiswa)
-	} else if strings.Contains(Pesan.Message, "approval") {
-		if !IsPhoneNumberExist(db, Pesan) {
-			reply = MessageUpdateNomorDiSiap()
-		} else {
-			// Periksa persetujuan dosen wali
-			tahun := GetCurrentAcademicYear()
-			_, prw, _ := CheckMahasiswaApproval(db, Pesan, tahun)
-			if prw.AppDosenWali == 2 {
-				reply = MessageSudahApproval(mahasiswa, prw)
-			} else if prw.AppDosenWali == 0 {
-				reply = MessageBelumApproval(mahasiswa, prw)
-			}
-		}
 	} else {
-		return "Terjadi Error"
+		return MessageSalahKeyword()
 	}
 	return
 }
