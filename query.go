@@ -131,7 +131,7 @@ func ResetPasswordDosen(db *sql.DB, Pesan model.IteungMessage, newPassword strin
 	if err != nil {
 		return MessageGagalResetDosen(Pesan)
 	}
-	return MessageBerhasilResetDosen(dosen)
+	return MessageBerhasilResetDosen(dosen, newPassword)
 }
 
 func GenerateMD5Hash(password string) (string, error) {
