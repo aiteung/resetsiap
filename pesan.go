@@ -8,9 +8,9 @@ func MessageBerhasilReset(mhs TblMhs, PasswordBaru string) string {
 	return msg
 }
 
-func MessageBerhasilResetDosen(dosen TblDosen) string {
+func MessageBerhasilResetDosen(dosen TblDosen, newPassword string) string {
 	msg := "*Reset Password*\n"
-	msg = msg + "Hai kak _*" + dosen.Nama + "*_,\ndengan nomor telepon *" + dosen.Phone + "*,\nNIDN *" + dosen.Nidn + "*, \npassword kakak berhasil di reset.\nSilahkan kakak coba login lagi di https://siapdosen.ulbi.ac.id/login"
+	msg = msg + "Hai kak _*" + dosen.Nama + "*_,\ndengan nomor telepon *" + dosen.Phone + "*,\nNIDN *" + dosen.Nidn + "*, \npassword kakak berhasil di reset.\nSilahkan kakak coba login lagi di https://siapdosen.ulbi.ac.id/login\n*Password baru kamu : " + newPassword + "*"
 	return msg
 }
 
