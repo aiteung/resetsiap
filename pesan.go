@@ -20,9 +20,9 @@ func MessageGagalReset(Pesan model.IteungMessage) string {
 	return msg
 }
 
-func MessageGagalResetDosen(dosen TblDosen) string {
+func MessageGagalResetDosen(Pesan model.IteungMessage) string {
 	msg := "*Gagal Reset Password*\n"
-	msg = msg + "Hai kak _*" + dosen.Nama + "*_,\ndengan nomor telepon *" + dosen.Phone + "*,\nNIDN *" + dosen.Nidn + "*, \nmaaf kak, password kakak gagal di reset :(.\nSilahkan kakak coba lagi yawww....."
+	msg = msg + "Data Kamu dengan Nomor Telepon " + Pesan.Phone_number + " Gaada nihh.\nCoba cek dulu nomor kamu udah sama kayak di SIAP Dosen atau belum yaa..."
 	return msg
 }
 
